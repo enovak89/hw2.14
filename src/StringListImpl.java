@@ -2,11 +2,15 @@ import exceptions.IncorrectArgumentException;
 import exceptions.MaxArrayLengthAchievedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StringListImpl {
 
     private final String[] stringArray;
     private final int arrayMaxLength;
+    private int count = 0;
+
+
 
     public StringListImpl(String[] stringArray, int arrayMaxLength) {
         this.stringArray = stringArray;
@@ -20,7 +24,7 @@ public class StringListImpl {
     }
 
     private void checkArray() {
-        if (stringArray.length >= arrayMaxLength) {
+        if (stringArray.length > arrayMaxLength) {
             throw new MaxArrayLengthAchievedException("Достигнут максимальный размер массива: " + arrayMaxLength);
         }
     }
@@ -28,7 +32,11 @@ public class StringListImpl {
     public String add(String item) {
       checkArgument(item);
       checkArray();
-      return stringArray[stringArray.length - 1] = item;
+      return stringArray[count++] = item;
+    }
+
+    public String[] getStringArray() {
+        return stringArray;
     }
 
 }
