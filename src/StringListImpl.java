@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 
-public class StringListImpl {
+public class StringListImpl implements StringList{
 
     private final String[] stringArray;
     private final String[] stringArrayCapasityTen = new String[10];
@@ -115,7 +115,7 @@ public class StringListImpl {
         return index;
     }
 
-    int lastIndexOf(String item) {
+    public int lastIndexOf(String item) {
         checkArgument(item);
         int index = -1;
         for (int i = stringArray.length - 1; i >= 0; i--) {
@@ -132,13 +132,13 @@ public class StringListImpl {
         return stringArray[index];
     }
 
-    public boolean equals(StringListImpl otherList) {
+    public boolean equals(StringList otherList) {
         if (otherList == null) {
             throw new IncorrectArgumentException("Введите непустой список");
         }
-        for (int i = 0; i < stringArray.length - 1; i++) {
-            if (stringArray[i] == null && otherList.getStringArray()[i] == null
-                    || stringArray[i].equals(otherList.getStringArray()[i])) {
+        for (int i = 0; i < stringArray.length; i++) {
+            if (stringArray[i] == null && otherList.toArray()[i] == null
+                    || stringArray[i].equals(otherList.toArray()[i])) {
             } else {
                 return false;
             }
@@ -151,7 +151,7 @@ public class StringListImpl {
     }
 
     public boolean isEmpty() {
-        for (int i = 0; i < stringArray.length - 1; i++) {
+        for (int i = 0; i < stringArray.length; i++) {
             if (stringArray[i] != null) {
                 return false;
             }
@@ -159,7 +159,17 @@ public class StringListImpl {
         return true;
     }
 
+    public void clear() {
+        for (int i = 0; i < stringArray.length; i++) {
+            stringArray[i] = null;
+        }
+    }
+
     public String[] getStringArray() {
+        return stringArray;
+    }
+
+    public String[] toArray() {
         return stringArray;
     }
 

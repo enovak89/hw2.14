@@ -34,6 +34,9 @@ public class Main {
         System.out.println(otherArray1.equals(otherArray));
         System.out.println(array.size());
         System.out.println(array.isEmpty());
+        array.clear();
+        System.out.println(Arrays.toString(array.getStringArray()));
+        System.out.println(Arrays.toString(array.toArray()));
 
 
     }
