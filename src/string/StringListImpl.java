@@ -1,12 +1,10 @@
+package string;
+
 import exceptions.ElementNotFoundedException;
-import exceptions.ImpossibleToInsertElementException;
 import exceptions.IncorrectArgumentException;
 import exceptions.MaxArrayLengthAchievedException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
 
 public class StringListImpl implements StringList{
 
@@ -27,7 +25,7 @@ public class StringListImpl implements StringList{
     }
 
     private void checkIndex(int index) {
-        if (index < 0 || index > stringArray.length - 1) {
+        if (index < 0 || index > count) {
             throw new IncorrectArgumentException("Некорректный индекс");
         }
     }
@@ -47,9 +45,6 @@ public class StringListImpl implements StringList{
     public String add(int index, String item) {
         checkArgument(item);
         checkIndex(index);
-        if (stringArray[stringArray.length - 1] != null) {
-            throw new ImpossibleToInsertElementException("Невозможно сдвинуть элементы массива для вставки нового элемента");
-        }
         String[] arrayStringTemp = Arrays.copyOfRange(stringArray, index, stringArray.length - 1);
         stringArray[index] = item;
         System.arraycopy(arrayStringTemp, 0, stringArray, index + 1, arrayStringTemp.length);
@@ -76,7 +71,7 @@ public class StringListImpl implements StringList{
         if (index == -1) {
             throw new ElementNotFoundedException("Элемент не найден");
         } else {
-            stringArray[index] = null;
+            System.arraycopy(stringArray, index + 1, stringArray, index, count - index);
             count--;
             return item;
         }
@@ -86,7 +81,8 @@ public class StringListImpl implements StringList{
         checkIndex(index);
         if (stringArray[index] != null) {
             String elementTemp = stringArray[index];
-            stringArray[index] = null;
+            System.arraycopy(stringArray, index + 1, stringArray, index, count - index);
+            count--;
             return elementTemp;
         } else {
             throw new ElementNotFoundedException("Элемент не найден");
@@ -151,40 +147,21 @@ public class StringListImpl implements StringList{
     }
 
     public boolean isEmpty() {
-        for (int i = 0; i < stringArray.length; i++) {
-            if (stringArray[i] != null) {
-                return false;
+            if (count == 0) {
+                return true;
             }
-        }
-        return true;
+        return false;
     }
 
     public void clear() {
         for (int i = 0; i < stringArray.length; i++) {
             stringArray[i] = null;
         }
-    }
-
-    public String[] getStringArray() {
-        return stringArray;
+        count = 0;
     }
 
     public String[] toArray() {
         return stringArray;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        StringListImpl that = (StringListImpl) o;
-//        return count == that.count && Arrays.equals(stringArray, that.stringArray);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = Objects.hash(count);
-//        result = 31 * result + Arrays.hashCode(stringArray);
-//        return result;
-//    }
 }
