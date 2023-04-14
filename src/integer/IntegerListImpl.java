@@ -19,6 +19,7 @@ public class IntegerListImpl implements IntegerList {
     }
 
     private void insertSort() {
+        System.out.println(Arrays.toString(integerArray));
         for (int i = 1; i < count; i++) {
             Integer temp = integerArray[i];
             int j = i;
@@ -31,26 +32,26 @@ public class IntegerListImpl implements IntegerList {
     }
 
     private boolean binarySearch(Integer item) {
-        int midIndex = count / 2;
-        Integer midElement = integerArray[midIndex];
-        while (midIndex < count - 1) {
-            if (item == midElement) {
+        System.out.println(Arrays.toString(integerArray));
+        int minIndex = 0;
+        int maxIndex = count - 1;
+        while (minIndex <= maxIndex) {
+            int midIndex = minIndex + (maxIndex - minIndex) / 2;
+            if (item.equals(integerArray[midIndex])) {
                 System.out.println(midIndex);
                 return true;
             }
-            if (midElement > integerArray[midIndex + 1]) {
-                midIndex = (count - midIndex) / 2;
-                midElement = integerArray[midIndex];
+            if (integerArray[midIndex] < item) {
+                minIndex = midIndex + 1;
             } else {
-                midIndex = midIndex / 2;
-                midElement = integerArray[midIndex];
+                maxIndex = midIndex - 1;
             }
         }
         return false;
     }
 
-    private void checkArgument(Integer string) {
-        if (string == null) {
+    private void checkArgument(Integer num) {
+        if (num == null) {
             throw new IncorrectArgumentException("Некорректная строка");
         }
     }

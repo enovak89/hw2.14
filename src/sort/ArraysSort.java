@@ -4,10 +4,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class ArraysSort {
-    Integer[] arrayForSearch = new Integer[10];
     Integer[] arrayForSort1 = new Integer[10];
     Integer[] arrayForSort2 = new Integer[100_000];
-    Integer[] arrayForSort3 = new Integer[100_000];
+    Integer[] arrayForSort3 = new Integer[10];
     Random random = new Random();
 
     public void setArraysForSort() {
@@ -15,8 +14,8 @@ public class ArraysSort {
             arrayForSort1[i] = random.nextInt(30);
         }
 //        arrayForSort2 = Arrays.copyOf(arrayForSort1, arrayForSort1.length);
-//        arrayForSort3 = Arrays.copyOf(arrayForSort1, arrayForSort1.length);
-        arrayForSearch = Arrays.copyOf(arrayForSort1, arrayForSort1.length);
+        arrayForSort3 = Arrays.copyOf(arrayForSort1, arrayForSort1.length);
+        System.out.println(Arrays.toString(arrayForSort3));
     }
 
     public static void swapElements(Integer[] arrayForSort, int indexFirst, int indexSecond) {
@@ -59,23 +58,22 @@ public class ArraysSort {
             }
             arrayForSort3[j] = temp;
         }
+        System.out.println(Arrays.toString(arrayForSort3));
     }
 
     public boolean binarySearch(Integer item) {
-        System.out.println(Arrays.toString(arrayForSearch));
-        int midIndex = arrayForSearch.length / 2;
-        Integer midElement = arrayForSearch[midIndex];
-        while (midIndex < arrayForSearch.length - 1) {
-            if (item == midElement) {
+        int minIndex = 0;
+        int maxIndex = arrayForSort3.length - 1;
+        while (minIndex <= maxIndex) {
+            int midIndex = minIndex + (maxIndex - minIndex) / 2;
+            if (item == arrayForSort3[midIndex]) {
                 System.out.println(midIndex);
                 return true;
             }
-            if (midElement > arrayForSearch[midIndex + 1]) {
-                midIndex = (arrayForSearch.length - midIndex) / 2;
-                midElement = arrayForSearch[midIndex];
+            if (arrayForSort3[midIndex] < item) {
+                minIndex = midIndex + 1;
             } else {
-                midIndex = midIndex / 2;
-                midElement = arrayForSearch[midIndex];
+                maxIndex = midIndex - 1;
             }
         }
         return false;
