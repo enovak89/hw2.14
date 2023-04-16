@@ -40,20 +40,21 @@ public class Main {
         System.out.println(Arrays.toString(array.toArray()));
 */
 
-        IntegerList array = new IntegerListImpl(8);
+        IntegerList array = new IntegerListImpl(20);
+        System.out.println(array.add(666));
         System.out.println(array.add(555));
         System.out.println(array.add(444));
         System.out.println(array.add(333));
         System.out.println(array.add(222));
         System.out.println(array.add(111));
 //        System.out.println(Arrays.toString(array.toArray()));
-        System.out.println(array.add(0, 3));
+//        System.out.println(array.add(0, 3));
 //        System.out.println(Arrays.toString(array.toArray()));
 //        System.out.println(array.set(2, 333));
 //        System.out.println(Arrays.toString(array.toArray()));
 //        System.out.println(array.remove(2));
 //        System.out.println(Arrays.toString(array.toArray()));
-        System.out.println(array.contains(555));
+        System.out.println(array.contains(333));
 //        System.out.println(array.indexOf(333));
 //        System.out.println(array.get(2));
 //        IntegerListImpl otherArray = new IntegerListImpl(8);
